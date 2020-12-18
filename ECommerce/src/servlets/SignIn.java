@@ -46,7 +46,7 @@ public class SignIn extends HttpServlet {
 		userSign.setPassword(request.getParameter("inputPassword"));
 		if(logic.processSignIn(userSign)) {
 			
-			request.getSession().setAttribute("user", logic.processLogin(userSign)); //addec recently
+			request.getSession().setAttribute("user", logic.processLogin(userSign)); //added recently
 			response.getWriter().append("success! the User was Registered");
 		} else {
 			response.getWriter().append("The Email is already registered");

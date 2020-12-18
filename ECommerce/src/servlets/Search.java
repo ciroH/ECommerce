@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import data.DataProduct;
+import entities.Product;
 
 /**
  * Servlet implementation class Search
@@ -30,13 +31,14 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		LinkedList results = dp.search(request.getParameter("searchField"));
-/*		String resultList = "";
+		LinkedList<Product> results = dp.search(request.getParameter("searchField"));
+
 		for (int i = 0; i < results.size(); i++) {
-			resultList += results.get(i).toString() ;
+			response.getWriter().append(results.get(i).getName() +" -> $"+ results.get(i).getPrice() );
+			
 		}
-		response.getWriter().append(resultList);
-*/	}
+
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
