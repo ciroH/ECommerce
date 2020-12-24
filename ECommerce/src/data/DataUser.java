@@ -46,11 +46,19 @@ public class DataUser {
 			return false;
 		}
 		try {
-			signInStmt = DbConnector.getInstance().getConn().prepareStatement("INSERT INTO user (mail,password,name) VALUES (?,?,?)");
+			if(user.getUserType().equals(null)) {
+			signInStmt = DbConnector.getInstance().getConn().prepareStatement("INSERT INTO user (mail,password,name) VALUES (?,?,?)"); //the default value for usertype on the DB is 'client', that's why it isn't specified in this INSERT 
 			signInStmt.setString(1, user.getMail());
 			signInStmt.setString(2, user.getPassword());
 			signInStmt.setString(3, user.getName());
-			
+			}
+			else {
+				signInStmt = DbConnector.getInstance().getConn().prepareStatement("INSERT INTO user (mail,password,name,usertype) VALUES (?,?,?,?)");
+				signInStmt.setString(1, user.getMail());
+				signInStmt.setString(2, user.getPassword());
+				signInStmt.setString(3, user.getName());
+				signInStmt.setString(4, user.getUserType());
+			}
 			signInStmt.executeUpdate(); //podría usar en su lugar execute(), que devuelve un booleano
 			
 		} catch (SQLException e) {

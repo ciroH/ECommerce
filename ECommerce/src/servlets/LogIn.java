@@ -33,7 +33,7 @@ public class LogIn extends HttpServlet {
 	    User userLogIn = new User();
 		userLogIn.setMail(request.getParameter("inputEmail"));
 		userLogIn.setPassword(request.getParameter("inputPassword"));
-		userLogIn = logic.processLogin(userLogIn);
+		userLogIn = logic.processLogIn(userLogIn);
 		response.getWriter().append("id: ").append(String.valueOf(userLogIn.getId()))
 							.append("\n name: ").append(userLogIn.getName());
 		

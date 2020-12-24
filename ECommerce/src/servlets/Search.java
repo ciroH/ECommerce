@@ -34,7 +34,7 @@ public class Search extends HttpServlet {
 		LinkedList<Product> results = dp.search(request.getParameter("searchField"));
 
 		for (int i = 0; i < results.size(); i++) {
-			response.getWriter().append(results.get(i).getName() +" -> $"+ results.get(i).getPrice() );
+			response.getWriter().append(results.get(i).getName()).append(" -> $").append(((Integer)results.get(i).getPrice()).toString());
 			
 		}
 
