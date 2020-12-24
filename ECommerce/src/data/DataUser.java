@@ -63,7 +63,7 @@ public class DataUser {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			//devolver error de conexión a la db como un throwException al jsp de SignIn
+			// devolver error de conexión a la db como un throwException al jsp de SignIn
 		} finally {
 			
 			try {

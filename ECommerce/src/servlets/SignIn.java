@@ -48,6 +48,7 @@ public class SignIn extends HttpServlet {
 			
 			request.getSession().setAttribute("user", logic.processLogIn(userSign)); //executes the login process, in order to save the User (Selected from the DB) into the Attribute "user" of this Session
 			
+			
 			response.getWriter().append("success! the User was Registered");
 		} else {
 			response.getWriter().append("The Email is already registered");

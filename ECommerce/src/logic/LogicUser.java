@@ -27,6 +27,7 @@ public class LogicUser{
 	}
 		
 /* 
+
 	//Separar en una nueva clase del package logic
 
 	public String getHash(String password) throws NoSuchAlgorithmException{
