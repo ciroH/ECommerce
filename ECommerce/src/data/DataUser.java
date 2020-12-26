@@ -46,7 +46,7 @@ public class DataUser {
 			return false;
 		}
 		try {
-			if(user.getUserType().equals(null)) {
+			if(user.getUserType() == null) {
 			signInStmt = DbConnector.getInstance().getConn().prepareStatement("INSERT INTO user (mail,password,name) VALUES (?,?,?)"); //the default value for usertype on the DB is 'client', that's why it isn't specified in this INSERT 
 			signInStmt.setString(1, user.getMail());
 			signInStmt.setString(2, user.getPassword());
