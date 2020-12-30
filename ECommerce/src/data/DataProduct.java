@@ -91,8 +91,8 @@ public class DataProduct {
 			PreparedStatement searchStatement = null;
 			ResultSet rs = null;
 			try {
-				searchStatement = DbConnector.getInstance().getConn().prepareStatement("select id,name,description,price,oldprice,stock from product where stock > 0 AND name LIKE '%?%' order by id desc");
-				searchStatement.setString(1, searchInput);
+				searchStatement = DbConnector.getInstance().getConn().prepareStatement("select id,name,description,price,oldprice,stock from product where stock > 0 AND name LIKE ? order by id desc");
+				searchStatement.setString(1,"%"+searchInput+"%");	//preguntarle a Adrián porqué es "%" envez de "'%" y "%'"
 				rs = searchStatement.executeQuery();
 
 				while (rs!=null && rs.next()) {

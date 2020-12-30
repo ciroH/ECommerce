@@ -3,6 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,13 +32,11 @@ public class Search extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		LinkedList<Product> results = dp.search(request.getParameter("searchField"));
-
-		for (int i = 0; i < results.size(); i++) {
-			response.getWriter().append(results.get(i).getName()).append(" -> $").append(((Integer)results.get(i).getPrice()).toString());
-			
-		}
-
+		request.setAttribute("results", results);
+		RequestDispatcher rd = request.getRequestDispatcher("/search.jsp");
+		rd.forward(request, response);
 	}
 
 	/**

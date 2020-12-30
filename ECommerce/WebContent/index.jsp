@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="style/indexStyle.css" rel="Stylesheet">
 <title>Welcome!</title>
 
 <% DataProduct dp= new DataProduct();
@@ -19,7 +20,7 @@
 	<form action="Search" method="get">
 	<div>
 	<input id="searchField" name="searchField" type="text" placeholder="Search that item that you need now!">
-	<button type="submit">⌕</button>
+	<button id="searchButton" type="submit">⌕</button>
 	</div>
 	</form>
 	
