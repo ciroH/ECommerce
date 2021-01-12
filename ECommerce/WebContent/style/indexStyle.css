@@ -1,9 +1,9 @@
 @charset "UTF-8";
 
 body {
-	background-color: #001A30;	
+	background-color: #001A30;
 	color: white;
-	background-image: url("background.jpg") center;	
+	background-image: url("../ImageResources/background.jpg");	
 	margin: auto;
 	max-width: 500px;
 }

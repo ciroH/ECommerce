@@ -1,8 +1,9 @@
 package entities;
 
 public class Product {
-	int id, price, oldPrice, stock;
-	String name, description;
+	int id, stock;
+	String name, description, category;
+	float price, oldPrice;
 	
 	public int getStock() {
 		return stock;
@@ -16,16 +17,16 @@ public class Product {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
-	public int getOldPrice() {
+	public float getOldPrice() {
 		return oldPrice;
 	}
-	public void setOldPrice(int oldPrice) {
+	public void setOldPrice(float oldPrice) {
 		this.oldPrice = oldPrice;
 	}
 	public String getName() {
@@ -40,8 +41,12 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	@Override
 	public String toString() {
 		

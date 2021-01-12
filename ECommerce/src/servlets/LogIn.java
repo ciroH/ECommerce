@@ -3,7 +3,6 @@ package servlets;
 import entities.User;
 import logic.LogicUser;
 
-
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
