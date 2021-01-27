@@ -22,5 +22,6 @@
 			<button type="submit">Sign In!</button>
 		</div>
 	</form>
+	Web Application Context Path = ${pageContext.request.contextPath}
 </body>
 </html>

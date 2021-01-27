@@ -18,19 +18,27 @@
    
 </head>
 <body>
+	<div class = "header">
+		<img class="logo" alt="logo" src="ImageResources/logo-transparent.png">
+		<form action="Search" method="get">
+			<div>
+				<input id="searchField" name="searchField" type="text" placeholder="Search that item that you need now!">
+				<button id="searchButton" type="submit">⌕</button>
+			</div>
+		</form>
 
-	<form action="Search" method="get">
-	<div>
-	<input id="searchField" name="searchField" type="text" placeholder="Search that item that you need now!">
-	<button id="searchButton" type="submit">⌕</button>
+		<!-- if session has user in null -->
+		<img id="userPhoto" alt="user" src="ImageResources/UserImage/Default/genericUser-small.png">
+		<!-- else, load userImage of the specific user and change the href to take the user to the user account instead of the login page-->
+	<!-- 	<img id="userPhoto" alt="user" src="">	-->
+		<img id="cartIcon" alt="" src="ImageResources/cartIcon-transparent.png">
 	</div>
-	</form>
-	
-	<h1>Products:</h1>
-	<% for(Product p : products){ %>
-<p>	<%= 	p.getName() %>
-	<%	}	%>
-	
+	<div class= "list">
+		<h1>Products:</h1>
+		<% for(Product p : products){ %>
+			<p>	<%= 	p.getName() %>
+								<%	}	%>
+	</div>
 
 </body>
 </html>
