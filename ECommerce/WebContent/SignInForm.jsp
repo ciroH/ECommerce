@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Sign In!</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<% String warning = (String)request.getAttribute("warning"); %>
 </head>
 <body>
 	<form action="SignIn" method="post">
@@ -22,6 +23,11 @@
 			<button type="submit">Sign In!</button>
 		</div>
 	</form>
-	Web Application Context Path = ${pageContext.request.contextPath}
+	<% if(warning.equals("existing")){ %>
+		<h1> That Email Address is already Registered!</h1>
+	<% } else if(warning.equals("password")){  %>
+		<h1> Verify Password! </h1>
+	<% } %>
+	
 </body>
 </html>

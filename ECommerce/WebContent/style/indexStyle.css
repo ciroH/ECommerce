@@ -105,15 +105,33 @@ input:focus {
 	        animation: shadow-drop-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
 }
-#cartIcon{
+.shoppingCart{
 	position:absolute; 
-	right:55px; 
+	right:5px; 
 	top:5px;	
+	font-size: 45px;
+}
+#sidebar{
+	max-width:100px;
+	border-right: 3px solid black;
+	border-bottom: 3px solid black;
+	border-color: #115D87;
+	position:absolute;
+	left: 0px;
+	padding: 5px;
 }
 .list{
-	max-width: 500px;	
+	max-width: 1000px;	
 	margin: auto;
+	 				overflow: hidden;
 }
-
+.item{
+	max-width: 140px;
+					float:left;
+}
+.separator{
+	max-width: 2px;
+					float:left;
+}
 
 

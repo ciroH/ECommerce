@@ -28,15 +28,29 @@
 		</form>
 
 		<!-- if session has user in null -->
-		<img id="userPhoto" alt="user" src="ImageResources/UserImage/Default/genericUser-small.png">
+		<a href="SignInForm.jsp">
+			<img id="userPhoto" alt="user" src="ImageResources/UserImage/Default/noUser-small.png">
+		</a>
 		<!-- else, load userImage of the specific user and change the href to take the user to the user account instead of the login page-->
 	<!-- 	<img id="userPhoto" alt="user" src="">	-->
-		<img id="cartIcon" alt="" src="ImageResources/cartIcon-transparent.png">
+		<a class="shoppingCart" href="#"> 🛒 </a>
 	</div>
+	<aside id="sidebar">
+	category 1 <br>
+	category 2 <br>
+	category 1 <br>
+	category 2 <br>
+	category 1 <br>
+	category 2 <br>
+	category 1 <br>
+	category 2 <br>
+	</aside>
 	<div class= "list">
 		<h1>Products:</h1>
-		<% for(Product p : products){ %>
-			<p>	<%= 	p.getName() %>
+		<% for(int p = 0;p<products.size();p++){ %>
+			<div class="item">	<%= 	products.get(p).getName() %>
+			</div>
+			<div class="separator"></div>
 								<%	}	%>
 	</div>
 

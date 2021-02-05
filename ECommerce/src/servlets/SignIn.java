@@ -47,16 +47,18 @@ public class SignIn extends HttpServlet {
 		if(logic.processSignIn(userSign)) { //tries to insert the user into the DB
 			
 			request.getSession().setAttribute("user", logic.processLogIn(userSign)); //executes the login process, in order to save the User (Selected from the DB) into the Attribute "user" of this Session
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			
-			
-			response.getWriter().append("success! the User was Registered");
 		} else {
-			response.getWriter().append("The Email is already registered");
-			//response.sendRedirect(location);
+			request.setAttribute("warning","existing"); //"warning, the email address already exist in the DataBase"
+			request.getRequestDispatcher("/SignInForm.jsp").forward(request, response);
 		}
 		
 		}else {
-			response.getWriter().append("verify Password"); //should be verified on the form, before sending the request.
+			//response.getWriter().append("verify Password"); 
+			 request.setAttribute("warning","password"); //<-- so when the servlet forwards the request to the same jsp, that jsp verifies request.getAttribute("warning"), and if it isn't null, the jsp shows a sign asking the user with the corresponding warning
+			 request.getRequestDispatcher("/SignInForm.jsp").forward(request, response);
+		
 		}
 	}
 
