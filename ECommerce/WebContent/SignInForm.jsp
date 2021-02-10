@@ -23,11 +23,13 @@
 			<button type="submit">Sign In!</button>
 		</div>
 	</form>
-	<% if(warning.equals("existing")){ %>
+	<% if(warning!=null){
+		if(warning.equals("existing")){ %>
 		<h1> That Email Address is already Registered!</h1>
 	<% } else if(warning.equals("password")){  %>
 		<h1> Verify Password! </h1>
-	<% } %>
+	<% } 
+	  } %>
 	
 </body>
 </html>

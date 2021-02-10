@@ -33,9 +33,16 @@ public class LogIn extends HttpServlet {
 		userLogIn.setMail(request.getParameter("inputEmail"));
 		userLogIn.setPassword(request.getParameter("inputPassword"));
 		userLogIn = logic.processLogIn(userLogIn);
-		response.getWriter().append("id: ").append(String.valueOf(userLogIn.getId()))
-							.append("\n name: ").append(userLogIn.getName());
-		
+		if (userLogIn == null) {
+			request.setAttribute("warning", "non-valid");
+			request.getRequestDispatcher("/LogInForm.jsp").forward(request, response);
+		}else if(userLogIn.getUserType().equals("client")){
+			request.getSession().setAttribute("user", userLogIn);
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+		}else if (userLogIn.getUserType().equals("admin")) {
+			request.getSession().setAttribute("user", userLogIn);
+			request.getRequestDispatcher("WEB-INF/indexAdmin.jsp").forward(request, response);
+		}	
 	}
 
 }

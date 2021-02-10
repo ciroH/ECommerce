@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+body{
+	background-color: #888A85;	
+	color: white;
+	margin: auto;
+}
+.logo{
+	position: absolute;
+	width: 50%;
+	top: 5px;
+<!--	margin: 0 auto; -->
+}

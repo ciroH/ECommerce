@@ -10,7 +10,7 @@ public class DataUser {
 		PreparedStatement loginStatement = null;
 		ResultSet rs = null;
 		try {
-			loginStatement = DbConnector.getInstance().getConn().prepareStatement("select id,mail,password,name from user where mail=? and password=?");
+			loginStatement = DbConnector.getInstance().getConn().prepareStatement("select id,mail,password,name,usertype from user where mail=? and password=?");
 			loginStatement.setString(1, userRec.getMail());
 			loginStatement.setString(2, userRec.getPassword());
 			
@@ -21,6 +21,7 @@ public class DataUser {
 				user.setMail(rs.getString("mail"));
 				user.setPassword(rs.getString("password"));
 				user.setName(rs.getString("name"));
+				user.setUserType(rs.getString("usertype"));
 			}
 		} catch (SQLException e) {
 				e.printStackTrace();

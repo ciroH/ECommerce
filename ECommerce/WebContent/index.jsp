@@ -28,7 +28,7 @@
 		</form>
 
 		<!-- if session has user in null -->
-		<a href="SignInForm.jsp">
+		<a href="LogInForm.jsp">
 			<img id="userPhoto" alt="user" src="ImageResources/UserImage/Default/noUser-small.png">
 		</a>
 		<!-- else, load userImage of the specific user and change the href to take the user to the user account instead of the login page-->
@@ -46,7 +46,7 @@
 	category 2 <br>
 	</aside>
 	<div class= "list">
-		<h1>Products:</h1>
+		<h1>Products:</h1>		<!-- (idea, but maybe it can get complicated at the moment of adding filter forms to the search results) i could  check, at the head of the JSP, if there's a request Attribute with the name "results", and, if that's the case, load those results into the products linkedList and show that in the for loop (the products linkedList would contain the search results(request.getAttribute("results");) instead of the getAll results from the DataProduct), eliminating the need of a "search.jsp"-->
 		<% for(int p = 0;p<products.size();p++){ %>
 			<div class="item">	<%= 	products.get(p).getName() %>
 			</div>
