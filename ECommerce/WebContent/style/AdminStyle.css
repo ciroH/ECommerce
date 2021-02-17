@@ -2,12 +2,23 @@
 
 body{
 	background-color: #888A85;	
-	color: white;
+	color: black;
 	margin: auto;
 }
 .logo{
 	position: absolute;
-	width: 50%;
+	left: 50%;
 	top: 5px;
-<!--	margin: 0 auto; -->
+	margin: 0 auto;
+}
+.ProductTable, th{
+
+	font-size: 5;
+}
+td{
+	border: 2px solid black;
+
+}
+.viewImage{
+	vertical-align: middle;
 }

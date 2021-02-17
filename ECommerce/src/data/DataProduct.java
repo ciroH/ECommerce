@@ -147,6 +147,7 @@ public class DataProduct {
 			} catch (SQLException e) {
 				e.printStackTrace();
 				// devolver error de conexión a la db como un throwException al jsp de "insertar producto"
+				// y si devuelvo false?
 			} finally {
 				
 				try {
@@ -157,6 +158,7 @@ public class DataProduct {
 						
 				} catch (Exception e2) {
 					e2.printStackTrace();
+					//return(false);
 				}
 			}
 				return true;
@@ -174,6 +176,7 @@ public class DataProduct {
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return false;
 				// devolver error de conexión a la db como un throwException al jsp de "insertar producto"
 			} finally {
 				

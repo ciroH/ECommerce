@@ -33,7 +33,7 @@
 		</a>
 		<!-- else, load userImage of the specific user and change the href to take the user to the user account instead of the login page-->
 	<!-- 	<img id="userPhoto" alt="user" src="">	-->
-		<a class="shoppingCart" href="#"> 🛒 </a>
+		<a class="shoppingCart" href="#"> 🛒 </a> <!-- hide the shopping cart to admins -->
 	</div>
 	<aside id="sidebar">
 	category 1 <br>
