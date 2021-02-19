@@ -47,8 +47,10 @@ try {
 			newProduct.setCategory((String)request.getParameter("category"));
 			newProduct.setStock(Integer.parseInt(request.getParameter("stock")));
 			if (logic.add(newProduct)) {
-				request.setAttribute("option", "products");
-				request.getRequestDispatcher("/Menu").forward(request, response);
+				LinkedList<Product> productList = logic.showAll();
+				request.setAttribute("productList", productList);
+				request.setAttribute("trigger", "clean");
+				request.getRequestDispatcher("WEB-INF/ManageProduct.jsp").forward(request, response);
 			} else {
 				LinkedList<Product> productList = logic.showAll();
 				request.setAttribute("productList", productList);

@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <%LinkedList<Product> products = (LinkedList<Product>)request.getAttribute("productList");
    //me tengo que traer esta LinkedList denuevo cada vez que hago un forward a esta página %>
+<% Product originalProduct = (Product)request.getAttribute("originalProduct"); %>
 <!-- Reemplazar los request.getAttribute("trigger") por una variable -->
 </head>
 <body>
@@ -22,15 +23,15 @@
 		<input type="image" src="${pageContext.request.contextPath}/ImageResources/logo-transparent.png">
 		</form>
   -->		
-		<%if((request.getAttribute("trigger").equals("add"))){ %>
-			<form action="AddProduct" method="post">
-				<input name="id" type="text" disabled>
-				<input name="name" type="text" maxlength="50" required>
-				<input name="description" type="text" maxlength="250">
-				<input name="price" type="number" min="0" max="1000000" step=".01" required>
-				<input name="oldPrice" type="text" disabled>
-				<input name="category" type="text" maxlength="25" required>
-				<input name="stock" type="number" min="0" max="5000000" step="1" required>
+		<%if((request.getAttribute("trigger").equals("add")) || (request.getAttribute("trigger").equals("showModify"))){ %>
+		
+			<form action= <%if((request.getAttribute("trigger").equals("add"))) { %> <%= "AddProduct" %> <% }else if((request.getAttribute("trigger").equals("showModify"))){ %> <%= "ModifyProduct" %> <% } %> method="post">
+				<input name="id" type="text" disabled <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getId() %>" <% } %> >
+				<input name="name" type="text" maxlength="50" placeholder="Name" required <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getName() %>" <% } %>	>
+				<input name="description" type="text" maxlength="250" placeholder="Description" <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getDescription() %>" <% } %> >
+				<input name="price" type="number" min=".01" max="1000000" step=".01" placeholder="Price" required <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getPrice() %>" <% } %> >
+				<input name="category" type="text" maxlength="25" placeholder="Category" required <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getCategory() %>" <% } %> >
+				<input name="stock" type="number" min="0" max="5000000" step="1" placeholder="Stock" required <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getStock() %>" <% } %> >
 				<img id="addImage" alt="Add Image" src="${pageContext.request.contextPath}/ImageResources/add-image.png" >
 				<input type="image" src="${pageContext.request.contextPath}/ImageResources/save.png">
 						
@@ -39,7 +40,7 @@
 		<% String errorTrigger = (String)request.getAttribute("trigger");
 			if(errorTrigger.equals("errorAdd")){ %>
 					<%= "An error has occurred. Check if the product doesn't exist already, and try later." %>
-		<% }else if(errorTrigger.equals("errorDelete")){ %>
+		<% }else if(errorTrigger.equals("errorDelete") || errorTrigger.equals("errorModify")){ %>
 					<%= "An error has occurred while trying to connect to the DataBase, try again." %>
 		<% } %>
 <div>
@@ -53,7 +54,7 @@
 				<th>Old Price</th>
 				<th>Category</th>
 				<th>Stock</th>
-				<% if(!(request.getAttribute("trigger").equals("delete"))){ %>
+				<% if(!(request.getAttribute("trigger").equals("delete") || request.getAttribute("trigger").equals("modify"))){ %>
 				<th>Images</th>			<!--  redirects to a servlet that shows the images in another jsp together with options to add or delete Images -->
 				<% } %>
 				<th>
@@ -63,7 +64,9 @@
 				<form action="DeleteProduct" method="post">
 				<input type="image" src="${pageContext.request.contextPath}/ImageResources/delete.png" >
 				</form>
-				<img id="modify" alt="modify" src="${pageContext.request.contextPath}/ImageResources/modify.png" >
+				<form action="ModifyProduct" method="post">
+				<input type="image" src="${pageContext.request.contextPath}/ImageResources/modify.png" >
+				</form>
 				</th>			
 			</tr>	
 		</thead>
@@ -83,6 +86,11 @@
 					<input name="id" type="hidden" value="<%= product.getId() %>" >
 					<input type="image" src="${pageContext.request.contextPath}/ImageResources/confirm-delete.png" >
 		   		</form></td>
+		   	<% }else if((request.getAttribute("trigger").equals("modify")) || (request.getAttribute("trigger").equals("errorModify"))){  %>
+		   		<td><form action="ModifyProduct" method="post">
+					<input name="id" type="hidden" value="<%= product.getId() %>" >
+					<input type="image" src="${pageContext.request.contextPath}/ImageResources/modify.png" >
+					</form></td>
 			<% }else { %>
 			
 				<td><img id="viewImage" alt="view" src="${pageContext.request.contextPath}/ImageResources/view.png" ></td>

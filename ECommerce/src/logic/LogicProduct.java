@@ -24,4 +24,12 @@ public class LogicProduct {
 		
 		return dp.delete(product);
 	}
+	public Product idSearch(int id) {
+		
+		return dp.searchById(id);
+	}
+	public boolean modify(Product product) {
+		
+		return dp.modify(product);
+	}
 }

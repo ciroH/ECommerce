@@ -194,21 +194,32 @@ public class DataProduct {
 					}
 		public boolean modify(Product product) {
 			PreparedStatement modPstmt = null;
+			int idParamNumber;
 			try {
-				modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product name=?, description=?, category=?, price=?, oldprice=?, stock=?	WHERE id  = ?");
-														//usar una función en logic (se debe pasar por esa capa en caso de ejecutar un modify)
+				if(product.getOldPrice() != 0.0f) {		//usar una función en logic (se debe pasar por esa capa en caso de ejecutar un modify)
 														//que mueva el valor de price a oldPrice si al comparar Product.price con el valor del field de price no hay un match.
+					
+					modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product SET name=?, description=?, category=?, price=?, stock=?, oldprice=?	WHERE id  = ?");
+					modPstmt.setFloat(6, product.getOldPrice());	
+					idParamNumber = 7;
+				}else {
+					modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product SET name=?, description=?, category=?, price=?, stock=?	WHERE id  = ?");									
+					idParamNumber = 6;
+				}
+														
 				modPstmt.setString(1, product.getName());
 				modPstmt.setString(2, product.getDescription());
 				modPstmt.setString(3, product.getCategory());
 				modPstmt.setFloat(4, product.getPrice());
-				modPstmt.setFloat(5, product.getOldPrice());
-				modPstmt.setInt(6, product.getStock());
+				modPstmt.setInt(5, product.getStock());
+				modPstmt.setInt(idParamNumber, product.getId());
+
+				
 				modPstmt.executeUpdate();
 
 			}catch (Exception e) {
 				e.printStackTrace();
-					//print "vuelva a intentarlo" talvez mientras el admin miraba la tabla en el browser otro admin borro de la misma db el Product
+				return false;
 			} finally {
 				try {
 					if (modPstmt !=null) {
@@ -220,6 +231,43 @@ public class DataProduct {
 				}	
 			}
 			return true;		
+		}
+		public Product searchById(int id) {
+			Product item = null;
+			PreparedStatement idSearchStatement = null;
+			ResultSet rs = null;
+			try {
+				idSearchStatement = DbConnector.getInstance().getConn().prepareStatement("select id,name,description,price,oldprice,stock,category from product where id = ?");
+				idSearchStatement.setInt(1, id);
+				rs = idSearchStatement.executeQuery();
+				if (rs!=null && rs.next()) {
+					item = new Product();
+					item.setId(rs.getInt("id"));
+					item.setName(rs.getString("name"));
+					item.setDescription(rs.getString("description"));
+					item.setPrice(rs.getInt("price"));
+					item.setOldPrice(rs.getInt("oldprice"));
+					item.setStock(rs.getInt("stock"));
+					item.setCategory(rs.getString("category"));
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				
+			}finally {
+				try {
+					if (rs!=null) {
+						rs.close();
+					}
+					if (idSearchStatement!=null) {
+						idSearchStatement.close();
+					}
+					DbConnector.getInstance().releaseConn();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
+		return item;
 		}
 		
 }	//for selecting categories later, use SELECT DISTINCT category FROM product;
