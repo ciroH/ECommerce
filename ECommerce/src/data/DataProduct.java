@@ -199,11 +199,11 @@ public class DataProduct {
 				if(product.getOldPrice() != 0.0f) {		//usar una función en logic (se debe pasar por esa capa en caso de ejecutar un modify)
 														//que mueva el valor de price a oldPrice si al comparar Product.price con el valor del field de price no hay un match.
 					
-					modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product SET name=?, description=?, category=?, price=?, stock=?, oldprice=?	WHERE id  = ?");
+					modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product SET name=?, description=?, category=?, price=?, stock=?, oldprice=?	WHERE id=?");
 					modPstmt.setFloat(6, product.getOldPrice());	
 					idParamNumber = 7;
 				}else {
-					modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product SET name=?, description=?, category=?, price=?, stock=?	WHERE id  = ?");									
+					modPstmt =DbConnector.getInstance().getConn().prepareStatement("UPDATE product SET name=?, description=?, category=?, price=?, stock=?	WHERE id=?");									
 					idParamNumber = 6;
 				}
 														

@@ -1,3 +1,4 @@
+<%@page import="entities.User"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="data.DataProduct"%>
 <%@page import="entities.Product"%>
@@ -15,7 +16,7 @@
 <% DataProduct dp= new DataProduct();
    LinkedList<Product> products = dp.getAll();
     %>
-   
+  <% User user = (User)request.getAttribute("user"); %>
 </head>
 <body>
 	<div class = "header">
@@ -28,12 +29,17 @@
 		</form>
 
 		<!-- if session has user in null -->
+		<% if(user == null){  %>
 		<a href="LogInForm.jsp">
 			<img id="userPhoto" alt="user" src="ImageResources/UserImage/Default/noUser-small.png">
 		</a>
-		<!-- else, load userImage of the specific user and change the href to take the user to the user account instead of the login page-->
-	<!-- 	<img id="userPhoto" alt="user" src="">	-->
-		<a class="shoppingCart" href="#"> 🛒 </a> <!-- hide the shopping cart to admins -->
+		<% }else { %>
+		<a href="UserProfile.jsp">
+			<img id="userPhoto" alt="user" src=<%= user.getUserPic() %> >
+		</a>
+		<% } %>
+		<a class="shoppingCart" href="#"> 🛒 </a> 	<!-- hides the shopping cart to admins -->
+
 	</div>
 	<aside id="sidebar">
 	category 1 <br>
