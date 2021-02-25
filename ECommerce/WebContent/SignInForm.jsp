@@ -6,12 +6,14 @@
 <meta charset="UTF-8">
 <title>Sign In!</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<link href="style/indexStyle.css" rel="stylesheet">
 <% String warning = (String)request.getAttribute("warning"); %>
 </head>
 <body>
 	<form action="SignIn" method="post">
-		<div>
-			
+		<div id="userForm">
+			<h1>Create an Account</h1>
+			<br>
 			<input id="name" name="name" type="text" placeholder="Name" required="required">
 			<br>
 			<input id="inputEmail" name="inputEmail" type="email" placeholder="Email" required="required">	

@@ -120,6 +120,18 @@ input:focus {
 	left: 0px;
 	padding: 5px;
 }
+#userForm{
+	text-align: center;
+	position: relative;
+	top: 50%;
+	margin-top: 100px;
+}
+#warning{
+	color: red;
+	text-align: center;
+	position: relative;
+	font-size: 16px;
+}
 .list{
 	max-width: 1000px;	
 	margin: auto;
@@ -133,5 +145,4 @@ input:focus {
 	max-width: 2px;
 					float:left;
 }
-
 

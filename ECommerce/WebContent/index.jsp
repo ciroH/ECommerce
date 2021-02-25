@@ -16,7 +16,7 @@
 <% DataProduct dp= new DataProduct();
    LinkedList<Product> products = dp.getAll();
     %>
-  <% User user = (User)request.getAttribute("user"); %>
+  <% User user = (User)session.getAttribute("user"); %>
 </head>
 <body>
 	<div class = "header">
@@ -35,7 +35,7 @@
 		</a>
 		<% }else { %>
 		<a href="UserProfile.jsp">
-			<img id="userPhoto" alt="user" src=<%= user.getUserPic() %> >
+			<img id="userPhoto" alt="user" src="<%= user.getUserPic() %>" >
 		</a>
 		<% } %>
 		<a class="shoppingCart" href="#"> 🛒 </a> 	<!-- hides the shopping cart to admins -->
