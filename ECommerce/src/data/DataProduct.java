@@ -213,6 +213,7 @@ public class DataProduct {
 				modPstmt.setFloat(4, product.getPrice());
 				modPstmt.setInt(5, product.getStock());
 				modPstmt.setInt(idParamNumber, product.getId());
+				System.out.println("Data Layer Product Id:" + product.getId());
 
 				
 				modPstmt.executeUpdate();

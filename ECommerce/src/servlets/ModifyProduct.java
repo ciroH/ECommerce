@@ -39,12 +39,14 @@ public class ModifyProduct extends HttpServlet {
 		if (request.getParameter("id") != null) {
 			System.out.println("id no es null (if n°1 true):"+ request.getParameter("id"));
 		productToModify.setId(Integer.parseInt(request.getParameter("id")));
-			System.out.println("   "+productToModify.getId());
+			System.out.println("  linea 42, id: "+productToModify.getId());
 		originalPrice = logic.idSearch(productToModify.getId()).getPrice();
 			System.out.println("   originalPrice:"+originalPrice);
+			System.out.println("  Antes del segundo if, id:"+ productToModify.getId());
 		}
 		if (request.getParameter("name") != null) {	//to process the form that contained modified product's fields
 			System.out.println("name no es null (if n°2 true):"+request.getParameter("name"));
+			System.out.println("linea 48, id:"+productToModify.getId());
 			productToModify.setName(request.getParameter("name"));
 			productToModify.setDescription(request.getParameter("description"));
 			productToModify.setCategory(request.getParameter("category"));

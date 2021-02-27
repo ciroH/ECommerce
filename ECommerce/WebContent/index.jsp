@@ -42,15 +42,11 @@
 
 	</div>
 	<aside id="sidebar">
-	category 1 <br>
-	category 2 <br>
-	category 1 <br>
-	category 2 <br>
-	category 1 <br>
-	category 2 <br>
-	category 1 <br>
-	category 2 <br>
+		<%for(Product p: products){ %>	<!-- first filter by category -->
+			<a class="sidebarCategory" href="#"> <%= p.getCategory() %> </a> <br> <!-- form with hidden field for the category -->
+		<% } %>
 	</aside>
+	
 	<div class= "list">
 		<h1>Products:</h1>		<!-- (idea, but maybe it can get complicated at the moment of adding filter forms to the search results) i could  check, at the head of the JSP, if there's a request Attribute with the name "results", and, if that's the case, load those results into the products linkedList and show that in the for loop (the products linkedList would contain the search results(request.getAttribute("results");) instead of the getAll results from the DataProduct), eliminating the need of a "search.jsp"-->
 		<% for(int p = 0;p<products.size();p++){ %>

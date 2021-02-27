@@ -112,13 +112,14 @@ input:focus {
 	font-size: 45px;
 }
 #sidebar{
-	max-width:100px;
+	max-width:120px;
 	border-right: 3px solid black;
 	border-bottom: 3px solid black;
 	border-color: #115D87;
 	position:absolute;
 	left: 0px;
 	padding: 5px;
+	
 }
 #userForm{
 	text-align: center;
@@ -131,6 +132,9 @@ input:focus {
 	text-align: center;
 	position: relative;
 	font-size: 16px;
+}
+.sidebarCategory{
+	color: #1179B0;
 }
 .list{
 	max-width: 1000px;	
