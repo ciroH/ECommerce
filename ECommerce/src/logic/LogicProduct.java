@@ -28,6 +28,7 @@ public class LogicProduct {
 		
 		return dp.searchById(id);
 	}
+	
 	public boolean modify(Product product) {
 		
 		return dp.modify(product);

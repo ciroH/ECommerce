@@ -47,7 +47,7 @@ public class DataProduct {
 		}
 	return productList;
 	}
-		public LinkedList<Product> getCategory(String category) {	
+		public LinkedList<Product> getByCategory(String category) {	
 		LinkedList<Product> productList = new LinkedList<>();
 		Product item;
 		PreparedStatement categoryStatement = null;
@@ -86,6 +86,35 @@ public class DataProduct {
 			}
 		}
 	return productList;
+	}
+		public LinkedList<String> getCategories(){
+			LinkedList<String> categories = new LinkedList<>();
+			PreparedStatement categoryStatement = null;
+			ResultSet rs = null;
+			try {
+				categoryStatement = DbConnector.getInstance().getConn().prepareStatement("select distinct category from product");
+				rs = categoryStatement.executeQuery();
+				
+				while (rs!=null && rs.next()) {
+					categories.add(rs.getString("category"));
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					if (rs!=null) {
+						rs.close();
+					}
+					if (categoryStatement!=null) {
+						categoryStatement.close();
+					}
+					DbConnector.getInstance().releaseConn();
+				} catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
+	return categories;	
 	}
 		public LinkedList<Product> search(String searchInput) {	
 			LinkedList<Product> productList = new LinkedList<>();

@@ -1,6 +1,9 @@
 package logic;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.security.*;
+import org.eclipse.core.resources.*;
 
 import data.DataUser;
 import entities.User;
@@ -37,4 +40,22 @@ public class LogicUser{
 	return "";
 			}
 */
+	
+	public void setPic(/*String imagePath, BufferedImage buffImg*/) {
+		File homeDir = new File(System.getProperty("user.dir"));
+		String pathSeparator = System.getProperty("file.separator");
+	/*	File imageFile = new File(homeDir,);
+		BufferedImage pic = new BufferedImage(imageFile);
+*/
+		System.out.println("user.dir "+System.getProperty("user.dir"));
+		System.out.println("user.home "+System.getProperty("user.home"));
+		System.out.println("user.name "+System.getProperty("user.name"));
+		System.out.println("path.separator "+System.getProperty("path.separator"));
+		System.out.println("file.separator "+System.getProperty("file.separator"));
+		System.out.println("java.class.path "+System.getProperty("java.class.path"));
+		File imageDir = Path
+		//System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
 	}
+
+
+}

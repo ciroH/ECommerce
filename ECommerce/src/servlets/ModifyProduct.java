@@ -36,28 +36,30 @@ public class ModifyProduct extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Product productToModify = new Product();
 		Float originalPrice = 0.0f;
+
 		if (request.getParameter("id") != null) {
 			System.out.println("id no es null (if n°1 true):"+ request.getParameter("id"));
 		productToModify.setId(Integer.parseInt(request.getParameter("id")));
-			System.out.println("  linea 42, id: "+productToModify.getId());
+			System.out.println("  linea 43, id: "+productToModify.getId());
 		originalPrice = logic.idSearch(productToModify.getId()).getPrice();
 			System.out.println("   originalPrice:"+originalPrice);
 			System.out.println("  Antes del segundo if, id:"+ productToModify.getId());
 		}
 		if (request.getParameter("name") != null) {	//to process the form that contained modified product's fields
 			System.out.println("name no es null (if n°2 true):"+request.getParameter("name"));
-			System.out.println("linea 48, id:"+productToModify.getId());
+			System.out.println("linea 50, id:"+productToModify.getId());
+/* if(Integer.isNull(productToModify.getId())) */ productToModify.setId(Integer.parseInt(request.getParameter("id"))); 
 			productToModify.setName(request.getParameter("name"));
 			productToModify.setDescription(request.getParameter("description"));
 			productToModify.setCategory(request.getParameter("category"));
 			productToModify.setStock(Integer.parseInt(request.getParameter("stock")));
 			productToModify.setPrice(Float.parseFloat(request.getParameter("price")));
 			if(originalPrice != productToModify.getPrice()) { //"if the price that the Product had before using the form to modify attributes isn't the same as the one after sending the form, then move the old price to the variable oldPrice and the new price into the variable price"
-				System.out.println("original price es distinto del precio actual (if n°3 true):"+ originalPrice);
+				System.out.println("original price es distinto del precio actual (if n°4 true):"+ originalPrice);
 				productToModify.setOldPrice(originalPrice);		//should i move this to the logic layer?
 			}
 			if (logic.modify(productToModify)) {			//sends the product loaded with the modified data to the DB, returns true for success, or false for Data layer exception
-				System.out.println("se ejecutó logic.modify (if n°4 true)");
+				System.out.println("se ejecutó logic.modify (if n°5 true)");
 				LinkedList<Product> productList = logic.showAll();
 				request.setAttribute("productList", productList);
 				request.setAttribute("trigger", "clean");

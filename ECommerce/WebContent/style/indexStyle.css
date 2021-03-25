@@ -135,6 +135,11 @@ input:focus {
 }
 .sidebarCategory{
 	color: #1179B0;
+  	background: none!important;
+  	border: none;
+  	padding: 0!important;
+  	text-decoration: underline;
+  	cursor: pointer;
 }
 .list{
 	max-width: 1000px;	

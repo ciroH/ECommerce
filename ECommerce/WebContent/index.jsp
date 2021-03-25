@@ -14,13 +14,23 @@
 <title>Welcome!</title>
 
 <% DataProduct dp= new DataProduct();
-   LinkedList<Product> products = dp.getAll();
+   LinkedList<Product> products;
+   LinkedList<String> categories = dp.getCategories();
+   if(request.getAttribute("categoryProducts")!=null){
+	products = (LinkedList<Product>)request.getAttribute("categoryProducts");
+   } else if(request.getAttribute("searchResults")!=null){
+	products = (LinkedList<Product>)request.getAttribute("searchResults");
+   } else{
+   	products = dp.getAll();
+   }
     %>
   <% User user = (User)session.getAttribute("user"); %>
 </head>
 <body>
 	<div class = "header">
+		<a href="index.jsp">
 		<img class="logo" alt="logo" src="ImageResources/logo-transparent.png">
+		</a>
 		<form action="Search" method="get">
 			<div>
 				<input id="searchField" name="searchField" type="text" placeholder="Search that item that you need now!">
@@ -42,8 +52,13 @@
 
 	</div>
 	<aside id="sidebar">
-		<%for(Product p: products){ %>	<!-- first filter by category -->
-			<a class="sidebarCategory" href="#"> <%= p.getCategory() %> </a> <br> <!-- form with hidden field for the category -->
+		<%for(String category: categories){ %>	<!-- first filter by category -->
+			
+			<form action="SearchCategory" method="get">  <!-- form with hidden field for the category -->
+				<input name="category" type="hidden" type="hidden" value="<%= category %>">
+				<button type="submit" class="sidebarCategory"> <%= category %> </button>
+			</form> 
+			<br>
 		<% } %>
 	</aside>
 	

@@ -14,6 +14,10 @@
 		<div id="userForm">
 			<h1>Create an Account</h1>
 			<br>
+			<img id="viewImage" alt="view" src="${pageContext.request.contextPath}/ImageResources/view.png" >
+			<input name="inputPic" type="file" accept=".png" src="${pageContext.request.contextPath}/ImageResources/view.png">
+			<!--  for adding dynamism to the page, it would be nice to put the inputPic field into a separtate form, so that the image can first be uploaded and saved to the temp folder, and after that, forward to this same page but showing the image and having it embedded into the main form as a hidden field (the image would be clickable, this is, it would still be a part of the secondary form, so that the user can click it to replace the image for another one) -->
+			<br>
 			<input id="name" name="name" type="text" placeholder="Name" required="required">
 			<br>
 			<input id="inputEmail" name="inputEmail" type="email" placeholder="Email" required="required">	

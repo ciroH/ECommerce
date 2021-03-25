@@ -3,6 +3,7 @@ package servlets;
 import entities.User;
 import logic.LogicUser;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,9 +45,16 @@ public class SignIn extends HttpServlet {
 		userSign.setMail(request.getParameter("inputEmail"));
 		userSign.setName(request.getParameter("name"));
 		userSign.setPassword(request.getParameter("inputPassword"));
-		if(logic.processSignIn(userSign)) { //tries to insert the user into the DB
-			
-			request.getSession().setAttribute("user", logic.processLogIn(userSign)); //executes the login process, in order to save the User (Selected from the DB) into the Attribute "user" of this Session
+		if (request.getParameter("inputPic") != null) {
+			//create a Buffered Image to save the form Parameter corresponding to the image
+		/*	BufferedImage profPic = */ System.out.println(request.getParameter("inputPic"));
+		}
+		if(logic.processSignIn(userSign)) { //tries to insert the user into the DB, if inserted correctly, the data layer calls another method to insert the profile pic
+			userSign = logic.processLogIn(userSign);
+		//	logic.setPic("${pageContext.request.contextPath}/WebContent/ImageResources/UserImage/"+userSign.getId(),BufferedImage);
+			//logic.setPic(/*userSign.getId(),BufferedImage*/);
+			//tengo que ver como inserto la imagen de perfil acá(Talvez, si el usuario se registró correctamente, uso su id para crear la carpeta para la imagen, la guardo, y luego modifico el user en la db usando su id, para guardar la imagen de perfil(Podría luego aprovechar el metodo en la data layer, para añadir la opcion de cambiar la foto de perfil del usuario a futuro). eso, o creo una nueva tabla para la profilepic, y en el login uso un join para recuperarla junto con los datos del user)
+			request.getSession().setAttribute("user", userSign); //executes the login process, in order to save the User (Selected from the DB) into the Attribute "user" of this Session
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			
 		} else {

@@ -14,36 +14,31 @@ import data.DataProduct;
 import entities.Product;
 
 /**
- * Servlet implementation class Search
+ * Servlet implementation class SearchCategory
  */
-@WebServlet("/Search")
-public class Search extends HttpServlet {
+@WebServlet("/SearchCategory")
+public class SearchCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    DataProduct dp;   
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public Search() {
+	DataProduct dp;
+       
+
+    public SearchCategory() {
         super();
         dp = new DataProduct();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		LinkedList<Product> results = dp.search(request.getParameter("searchField"));
-		request.setAttribute("searchResults", results);
+		String category = request.getParameter("category");
+		LinkedList<Product> productList = dp.getByCategory(category);
+		request.setAttribute("categoryProducts", productList);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub 
+		
 		doGet(request, response);
 	}
 
