@@ -121,6 +121,15 @@ input:focus {
 	padding: 5px;
 	
 }
+#filterSidebar{
+	max-width:120px;
+	border-right: 3px solid black;
+	border-bottom: 3px solid black;
+	border-color: #115D87;
+	left: 0px;
+	padding: 5px;
+	
+}
 #userForm{
 	text-align: center;
 	position: relative;
@@ -144,14 +153,20 @@ input:focus {
 .list{
 	max-width: 1000px;	
 	margin: auto;
-	 				overflow: hidden;
+	overflow: hidden;
 }
 .item{
 	max-width: 140px;
-					float:left;
+	float:left;
+	text-align: center;
+	vertical-align: text-bottom;
 }
 .separator{
-	max-width: 2px;
-					float:left;
+	max-width: 20px;
+	float:left;
+	position: relative;
+}
+.priceFilter{
+	max-width: 100px;
 }
 

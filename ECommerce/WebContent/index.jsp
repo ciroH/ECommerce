@@ -61,11 +61,22 @@
 			<br>
 		<% } %>
 	</aside>
+	<aside id="filterSidebar">
+	<form action="FilterProduct" method="get">
+	<b>Filter by price:</b> <br>
+	<input class="priceFilter" type="number" min=".01" max="1000000" step=".01" placeholder="Min." required>
+	<input class="priceFilter" type="number" min=".01" max="1000000" step=".01" placeholder="Max." required>
+	<button type="submit"> > </button>
+	</form>
+	</aside>
 	
 	<div class= "list">
 		<h1>Products:</h1>		<!-- (idea, but maybe it can get complicated at the moment of adding filter forms to the search results) i could  check, at the head of the JSP, if there's a request Attribute with the name "results", and, if that's the case, load those results into the products linkedList and show that in the for loop (the products linkedList would contain the search results(request.getAttribute("results");) instead of the getAll results from the DataProduct), eliminating the need of a "search.jsp"-->
 		<% for(int p = 0;p<products.size();p++){ %>
-			<div class="item">	<%= 	products.get(p).getName() %>
+			<div class="item">	
+				<%= 	products.get(p).getName() %>
+				<br>
+			<b>	<%= 	"$" + products.get(p).getPrice() %> </b>				
 			</div>
 			<div class="separator"></div>
 								<%	}	%>

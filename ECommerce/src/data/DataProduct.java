@@ -300,4 +300,4 @@ public class DataProduct {
 		return item;
 		}
 		
-}	//for selecting categories later, use SELECT DISTINCT category FROM product;
+}

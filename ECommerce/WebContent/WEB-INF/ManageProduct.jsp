@@ -26,7 +26,7 @@
 		<%if((request.getAttribute("trigger").equals("add")) || (request.getAttribute("trigger").equals("showModify"))){ %>
 		
 			<form action= <%if((request.getAttribute("trigger").equals("add"))) { %> <%= "AddProduct" %> <% }else if((request.getAttribute("trigger").equals("showModify"))){ %> <%= "ModifyProduct" %> <% } %> method="post">
-				<input name="id" type="text" disabled <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getId() %>" <% } %> >
+				<input name="id" type="text" <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getId() %>" <% } %> >
 				<input name="name" type="text" maxlength="50" placeholder="Name" required <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getName() %>" <% } %>	>
 				<input name="description" type="text" maxlength="250" placeholder="Description" <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getDescription() %>" <% } %> >
 				<input name="price" type="number" min=".01" max="1000000" step=".01" placeholder="Price" required <% if( (request.getAttribute("trigger").equals("showModify"))){ %> value="<%= originalProduct.getPrice() %>" <% } %> >
