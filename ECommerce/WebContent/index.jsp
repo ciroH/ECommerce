@@ -12,7 +12,6 @@
 <!-- find a way of fowarding to this same page,cleaning the attributes "search" and "category", but keeping the session attribute "user" (using redirect on the logo of the page would delete the session too)( this same thing must be done when searching product or clicking on a category) -->
 <!-- maybe i can solve this using a new attribute on the request, "state" , that is null if i'm needing to see the clean index, "search" if i'm searching products or "category" if i clicked a category. before fowarding i change the value of the "state" attribute, and then, i use two if-else if-else (one in the <head> to load results, or categories, or the things on the clean index, and another in the <body> to show those products  -->
 <title>Welcome!</title>
-
 <% DataProduct dp= new DataProduct();
    LinkedList<Product> products;
    LinkedList<String> categories = dp.getCategories();
@@ -20,7 +19,9 @@
 	products = (LinkedList<Product>)request.getAttribute("categoryProducts");
    } else if(request.getAttribute("searchResults")!=null){
 	products = (LinkedList<Product>)request.getAttribute("searchResults");
-   } else{
+   }else if(request.getAttribute("filteredProducts")!=null){
+   products = (LinkedList<Product>)request.getAttribute("filteredProducts");
+   }else{
    	products = dp.getAll();
    }
     %>
@@ -51,6 +52,7 @@
 		<a class="shoppingCart" href="#"> 🛒 </a> 	<!-- hides the shopping cart to admins -->
 
 	</div>
+
 	<aside id="sidebar">
 		<%for(String category: categories){ %>	<!-- first filter by category -->
 			
@@ -64,22 +66,26 @@
 	<aside id="filterSidebar">
 	<form action="FilterProduct" method="get">
 	<b>Filter by price:</b> <br>
-	<input class="priceFilter" type="number" min=".01" max="1000000" step=".01" placeholder="Min." required>
-	<input class="priceFilter" type="number" min=".01" max="1000000" step=".01" placeholder="Max." required>
+<!--<input name="minPrice" class="priceFilter" type="number" min=".01" max="1000000" step=".01" placeholder="Min." required> -->
+	<input name="maxPrice" class="priceFilter" type="number" min=".01" max="1000000" step=".01" placeholder="Max." required>
 	<button type="submit"> > </button>
 	</form>
 	</aside>
-	
+
 	<div class= "list">
-		<h1>Products:</h1>		<!-- (idea, but maybe it can get complicated at the moment of adding filter forms to the search results) i could  check, at the head of the JSP, if there's a request Attribute with the name "results", and, if that's the case, load those results into the products linkedList and show that in the for loop (the products linkedList would contain the search results(request.getAttribute("results");) instead of the getAll results from the DataProduct), eliminating the need of a "search.jsp"-->
-		<% for(int p = 0;p<products.size();p++){ %>
+		<h1>Products:</h1>
+		<% if(products.size() != 0){
+			for(int p = 0;p<products.size();p++){ %>
 			<div class="item">	
 				<%= 	products.get(p).getName() %>
 				<br>
 			<b>	<%= 	"$" + products.get(p).getPrice() %> </b>				
 			</div>
 			<div class="separator"></div>
-								<%	}	%>
+			<%	}	%>
+			<% }else { %>
+			<h1> No products found with this characteristic </h1>
+			<% } %>			
 	</div>
 
 </body>

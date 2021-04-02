@@ -299,5 +299,45 @@ public class DataProduct {
 			}
 		return item;
 		}
+		public LinkedList<Product> filterByPrice(float maxPrice) {	
+		LinkedList<Product> productList = new LinkedList<>();
+		Product item;
+		PreparedStatement filterStatement = null;
+		ResultSet rs = null;
+		try {
+			filterStatement = DbConnector.getInstance().getConn().prepareStatement("select id,name,description,price,oldprice,stock,category from product where price < ? ");
+			filterStatement.setFloat(1, maxPrice);
+			rs = filterStatement.executeQuery();
+			
+			while (rs!=null && rs.next()) {
+				item = new Product();
+				item.setId(rs.getInt("id"));
+				item.setName(rs.getString("name"));
+				item.setDescription(rs.getString("description"));
+				item.setPrice(rs.getInt("price"));
+				item.setOldPrice(rs.getInt("oldprice"));
+				item.setStock(rs.getInt("stock"));
+				item.setCategory(rs.getString("category"));
+				//item.setImage
+				productList.add(item);
+			}
+			
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}finally {
+			try {
+				if (rs!=null) {
+					rs.close();
+				}
+				if (filterStatement!=null) {
+					filterStatement.close();
+				}
+				DbConnector.getInstance().releaseConn();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+	return productList;
+	}
 		
 }
