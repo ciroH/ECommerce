@@ -50,7 +50,7 @@
 		</a>
 		<% } %>
 		<a class="shoppingCart" href="#"> 🛒 </a> 	<!-- hides the shopping cart to admins -->
-
+		<!-- jsp to jsp request to ViewProduct -->
 	</div>
 
 	<aside id="sidebar">
@@ -77,6 +77,10 @@
 		<% if(products.size() != 0){
 			for(int p = 0;p<products.size();p++){ %>
 			<div class="item">	
+				<form action="ViewProduct" method="get">
+				<input name="id" type="hidden" value="<%= products.get(p).getId() %>">
+				<input type="submit">
+				</form>
 				<%= 	products.get(p).getName() %>
 				<br>
 			<b>	<%= 	"$" + products.get(p).getPrice() %> </b>				
