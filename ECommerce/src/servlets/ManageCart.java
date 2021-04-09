@@ -43,8 +43,12 @@ public class ManageCart extends HttpServlet {
 		request.getSession().setAttribute("shoppingCart", shoppingCart);
 		request.getRequestDispatcher("WEB-INF/ShoppingCart.jsp").forward(request, response);
 		} else {
+			if (request.getSession().getAttribute("shoppingCart")!=null) {
+				request.getRequestDispatcher("WEB-INF/ShoppingCart.jsp").forward(request, response);
+			}else {
 			request.getSession().setAttribute("shoppingCart", shoppingCart);
 			request.getRequestDispatcher("WEB-INF/ShoppingCart.jsp").forward(request, response);
+			}
 		}
 	}
 

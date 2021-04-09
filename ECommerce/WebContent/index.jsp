@@ -50,7 +50,9 @@
 		</a>
 		<% } %>
 		<% if(user != null){  %>
-		<a class="shoppingCart" href="#"> 🛒 </a>
+		<form action="ManageCart" method="get">
+  			<button type="submit"> 🛒 </button>
+		</form>
 		<% } %>
 	</div>
 
