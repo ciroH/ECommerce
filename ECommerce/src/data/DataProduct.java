@@ -305,7 +305,7 @@ public class DataProduct {
 		PreparedStatement filterStatement = null;
 		ResultSet rs = null;
 		try {
-			filterStatement = DbConnector.getInstance().getConn().prepareStatement("select id,name,description,price,oldprice,stock,category from product where price < ? ");
+			filterStatement = DbConnector.getInstance().getConn().prepareStatement("select id,name,description,price,oldprice,stock,category from product where price <= ? ");
 			filterStatement.setFloat(1, maxPrice);
 			rs = filterStatement.executeQuery();
 			

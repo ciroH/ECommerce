@@ -170,5 +170,14 @@ input:focus {
 .priceFilter{
 	max-width: 100px;
 }
+.cartTable, th{
 
+	font-size: 5;
+}
+td{
+	border: 2px solid black;
 
+}
+.cartWrapper{
+	margin: auto;
+}

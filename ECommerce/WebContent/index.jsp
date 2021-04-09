@@ -53,6 +53,7 @@
 		<form action="ManageCart" method="get">
   			<button type="submit"> 🛒 </button>
 		</form>
+<!-- <a class="shoppingCart" href="/ECommerce/ManageCart"> 🛒 </a>  <!-- this should be replaced with a form, and styled to look like an <a> tag -->
 		<% } %>
 	</div>
 
