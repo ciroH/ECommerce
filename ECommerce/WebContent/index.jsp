@@ -49,8 +49,9 @@
 			<img id="userPhoto" alt="user" src="<%= user.getUserPic() %>" >
 		</a>
 		<% } %>
-		<a class="shoppingCart" href="#"> 🛒 </a> 	<!-- hides the shopping cart to admins -->
-		<!-- jsp to jsp request to ViewProduct -->
+		<% if(user != null){  %>
+		<a class="shoppingCart" href="#"> 🛒 </a>
+		<% } %>
 	</div>
 
 	<aside id="sidebar">

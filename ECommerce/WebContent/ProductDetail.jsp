@@ -11,6 +11,11 @@
 <link href="style/productStyle.css" rel="Stylesheet">
 </head>
 <body>
+<div class = "header">
+		<a href="index.jsp">
+		<img class="logo" alt="logo" src="ImageResources/logo-transparent.png">
+		</a>
+</div>
 <div id="productWrapper">
 <div id="photoWrapper">
 
@@ -21,6 +26,7 @@
 	<%= "AR$"+product.getOldPrice() %>
 <% } %>
 <h1> <%= "AR$"+product.getPrice() %> </h1>
+<% if(session.getAttribute("user")!= null){ %>
 <form action="ManageCart" method="get">
 	<input name="id" type="hidden" value=<%= product.getId() %> >
 	<select name="quantity">
@@ -30,6 +36,7 @@
 	</select>
 	<input type="submit" value="Add to cart!"> 
 </form>
+<% } %>
 </div>
 
 <div id="descWrapper">

@@ -41,10 +41,10 @@ public class ManageCart extends HttpServlet {
 			}
 			//else creo el hashMap, le meto el product, y lo asigno a la session.
 		request.getSession().setAttribute("shoppingCart", shoppingCart);
-		request.getRequestDispatcher("ShoppingCart.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/ShoppingCart.jsp").forward(request, response);
 		} else {
 			request.getSession().setAttribute("shoppingCart", shoppingCart);
-			request.getRequestDispatcher("ShoppingCart.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/ShoppingCart.jsp").forward(request, response);
 		}
 	}
 
