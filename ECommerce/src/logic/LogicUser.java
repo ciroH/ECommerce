@@ -41,12 +41,12 @@ public class LogicUser{
 			}
 */
 	
-	public void setPic(/*String imagePath, BufferedImage buffImg*/) {
+/*	public void setPic(//String imagePath, BufferedImage buffImg) {
 		File homeDir = new File(System.getProperty("user.dir"));
 		String pathSeparator = System.getProperty("file.separator");
-	/*	File imageFile = new File(homeDir,);
-		BufferedImage pic = new BufferedImage(imageFile);
-*/
+	//	File imageFile = new File(homeDir,);
+	//	BufferedImage pic = new BufferedImage(imageFile);
+
 		System.out.println("user.dir "+System.getProperty("user.dir"));
 		System.out.println("user.home "+System.getProperty("user.home"));
 		System.out.println("user.name "+System.getProperty("user.name"));
@@ -56,6 +56,6 @@ public class LogicUser{
 		File imageDir = Path
 		//System.out.println(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
 	}
-
+*/
 
 }

@@ -9,18 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Address;
+import entities.Card;
 import entities.Product;
+import entities.User;
 import logic.LogicProduct;
 
 /**
- * Servlet implementation class PurchaseDetails
+ * Servlet implementation class FinishPurchase
  */
-@WebServlet("/PurchaseDetails")
-public class PurchaseDetails extends HttpServlet {
+@WebServlet("/FinishPurchase")
+public class FinishPurchase extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        LogicProduct logic;
-
-    public PurchaseDetails() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public FinishPurchase() {
         super();
         logic = new LogicProduct();
     }
@@ -37,15 +42,14 @@ public class PurchaseDetails extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().getAttribute("shoppingCart"); //delete this line
+		User user = (User)request.getSession().getAttribute("user");
+		Address address = (Address)request.getSession().getAttribute("address");
+		Card card = (Card)request.getSession().getAttribute("card");
 		HashMap<Integer,Integer> shoppingCart = new HashMap<>();
-		HashMap<Product,Integer> cartToShow =  new HashMap<>();
-		shoppingCart.putAll((HashMap<Integer,Integer>)request.getSession().getAttribute("shoppingCart"));
-		for(HashMap.Entry<Integer,Integer> product : shoppingCart.entrySet()){
-			cartToShow.put(logic.idSearch(product.getKey()) , product.getValue());
-		}
-		request.setAttribute("cartToShow", cartToShow);
-		request.getRequestDispatcher("WEB-INF/ShowPurchaseDetails.jsp").forward(request, response);
+				//remember to empty the cart from the session once the transaction is registered in the DB
+
+		
+		
 	}
 
 }

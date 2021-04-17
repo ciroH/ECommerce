@@ -74,7 +74,11 @@
 </form>
 </div>
 <div class="confirmationWrapper">
-
+<% if(showCard && showAddress){%>
+	<form action="FinishPurchase" method="post">
+		<button type="submit"> Complete Purchase! </button>
+	</form>
+<% } %>
 </div>
 
 </body>
