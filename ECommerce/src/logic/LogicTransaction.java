@@ -27,9 +27,13 @@ public class LogicTransaction {
 			cartToPrint.put(lp.idSearch(product.getKey()) , product.getValue());
 			
 			currentProductPrice = (lp.idSearch(product.getKey()).getPrice());
+			System.out.println("price:"+currentProductPrice);
 			currentProductQty = product.getValue();
+			System.out.println("Qty:"+currentProductQty);
 			currentProductTotal= (currentProductPrice * currentProductQty);
+			System.out.println("Total"+currentProductTotal);
 			transaction.setTotal(transaction.getTotal() + currentProductTotal); 
+			System.out.println("TTotal:"+transaction.getTotal());
 		}
 	/***** 	Setting the serverDate:	*****/	
 		long mlSeconds = System.currentTimeMillis();

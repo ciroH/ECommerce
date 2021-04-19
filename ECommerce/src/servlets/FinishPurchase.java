@@ -47,6 +47,7 @@ public class FinishPurchase extends HttpServlet {
 		Address address = (Address)request.getSession().getAttribute("address");
 		Card card = (Card)request.getSession().getAttribute("card");
 		HashMap<Integer,Integer> shoppingCart = new HashMap<>();
+		shoppingCart.putAll((HashMap<Integer, Integer>)request.getSession().getAttribute("shoppingCart"));
 				//remember to empty the cart (and the address and card) from the session once the transaction is registered in the DB
 		Transaction transaction = logic.registerTransaction(user.getId(), address.getId(), card.getId(), shoppingCart);
 		request.setAttribute("ticket", transaction);
