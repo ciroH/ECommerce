@@ -11,9 +11,12 @@ import entities.Transaction;
 
 public class LogicTransaction {
 
-	Transaction registerTransaction(int userId, int addressId, int cardId, HashMap<Integer,Integer> shoppingCart){	//shoppingCart has the if of each product as the Key and the quantity as the Value
+ public	Transaction registerTransaction(int userId, int addressId, int cardId, HashMap<Integer,Integer> shoppingCart){	//shoppingCart has the if of each product as the Key and the quantity as the Value
 		DataTransaction dataT = new DataTransaction();
 		Transaction transaction = new Transaction();
+		float currentProductPrice;
+		float currentProductTotal;
+		int currentProductQty;
 		transaction.setIdUser(userId);
 		transaction.setIdAddress(addressId);
 		transaction.setIdCard(cardId);
@@ -22,7 +25,11 @@ public class LogicTransaction {
 	/******		Generating the shopping cart with all the details from products, and calculating the total of the Transaction:	******/
 		for(HashMap.Entry<Integer,Integer> product : shoppingCart.entrySet()){
 			cartToPrint.put(lp.idSearch(product.getKey()) , product.getValue());
-			transaction.setTotal(transaction.getTotal() + (lp.idSearch(product.getKey()).getPrice())); 
+			
+			currentProductPrice = (lp.idSearch(product.getKey()).getPrice());
+			currentProductQty = product.getValue();
+			currentProductTotal= (currentProductPrice * currentProductQty);
+			transaction.setTotal(transaction.getTotal() + currentProductTotal); 
 		}
 	/***** 	Setting the serverDate:	*****/	
 		long mlSeconds = System.currentTimeMillis();
@@ -50,16 +57,18 @@ public class LogicTransaction {
 		transaction.setDetail(printedCart);	
 	/*****	Calling DataTransaction	*****/	
 		if (dataT.saveTransaction(transaction)) {
-			
-			if (dataT.saveDetails(transaction)) {
+			System.out.println("Transaction Saved");
+			System.out.println(transaction.getDetail());
+			//retrieve the Trasnsaction, to send it to saveDetails
+/*			if (dataT.saveDetails(transaction)) {	//must define a way of make them both true or false, maybe if saveTransaction or saveDetails fails, erasing the transaction from the DB and returning an error would be the best
 				
 			}
-		}else {
+*/		}else {
 			
 		}
 		
 		
-		
+	return transaction;	
 	}
 	
 }

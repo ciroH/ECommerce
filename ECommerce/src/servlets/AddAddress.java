@@ -44,7 +44,10 @@ public class AddAddress extends HttpServlet {
 		address.setState(request.getParameter("state"));
 		address.setCountry(request.getParameter("country"));
 		address.setPostalCode(request.getParameter("postalcode"));
-		if(da.add(address)) request.getSession().setAttribute("address", address);
+		if(da.add(address)){
+			address = da.getAddress(address);
+			request.getSession().setAttribute("address", address);
+		}
 		request.getRequestDispatcher("/PurchaseDetails").forward(request, response);
 		
 		

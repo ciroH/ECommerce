@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entities.Card;
@@ -36,6 +37,42 @@ public class DataCard {
 	}
 		return true;
 	
+	}
+	
+	public Card getCard(Card searchedCard) {
+		Card card = new Card();
+		PreparedStatement getCardStatement = null;
+		ResultSet rs = null;
+		try {
+			getCardStatement = DbConnector.getInstance().getConn().prepareStatement("select id,number,securitycode,expdate from card where number=? and securitycode=? ");
+			getCardStatement.setString(1, searchedCard.getNumber());
+			getCardStatement.setInt(2, searchedCard.getSecurityCode());
+			
+			rs = getCardStatement.executeQuery();
+			if (rs!=null && rs.next()) {
+				card.setId(rs.getInt("id"));
+				card.setNumber(rs.getString("number"));
+				card.setSecurityCode(rs.getInt("securitycode"));
+				card.setDate(rs.getDate("expdate"));
+				//card.setLogo(rs.getString("logo"));
+				
+			}
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}finally {
+			try {
+				if (rs!=null) {
+					rs.close();
+				}
+				if (getCardStatement!=null) {
+					getCardStatement.close();
+				}
+				DbConnector.getInstance().releaseConn();
+			} catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+	return card;
 	}
 	
 	/*	public LinkedList<Card> search(Card ) {	

@@ -41,7 +41,10 @@ public class AddCard extends HttpServlet {
 		card.setNumber(request.getParameter("number"));
 		card.setSecurityCode(Integer.parseInt(request.getParameter("securitycode")));
 		card.setDate(Date.valueOf(request.getParameter("date")));
-		if(dc.add(card)) request.getSession().setAttribute("card", card);
+		if(dc.add(card)){
+			card = dc.getCard(card);
+			request.getSession().setAttribute("card", card);
+		}
 		request.getRequestDispatcher("/PurchaseDetails").forward(request, response);
 		
 	}

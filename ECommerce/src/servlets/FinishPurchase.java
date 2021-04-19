@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import entities.Address;
 import entities.Card;
 import entities.Product;
+import entities.Transaction;
 import entities.User;
-import logic.LogicProduct;
+import logic.LogicTransaction;
 
 /**
  * Servlet implementation class FinishPurchase
@@ -21,13 +22,13 @@ import logic.LogicProduct;
 @WebServlet("/FinishPurchase")
 public class FinishPurchase extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       LogicProduct logic;
+       LogicTransaction logic;
     /**
      * @see HttpServlet#HttpServlet()
      */
     public FinishPurchase() {
         super();
-        logic = new LogicProduct();
+        logic = new LogicTransaction();
     }
 
 	/**
@@ -46,8 +47,10 @@ public class FinishPurchase extends HttpServlet {
 		Address address = (Address)request.getSession().getAttribute("address");
 		Card card = (Card)request.getSession().getAttribute("card");
 		HashMap<Integer,Integer> shoppingCart = new HashMap<>();
-				//remember to empty the cart from the session once the transaction is registered in the DB
-
+				//remember to empty the cart (and the address and card) from the session once the transaction is registered in the DB
+		Transaction transaction = logic.registerTransaction(user.getId(), address.getId(), card.getId(), shoppingCart);
+		request.setAttribute("ticket", transaction);
+		request.getRequestDispatcher("WEB-INF/TransactionTicket.jsp").forward(request, response);
 		
 		
 	}
