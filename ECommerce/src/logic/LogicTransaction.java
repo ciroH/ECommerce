@@ -25,15 +25,10 @@ public class LogicTransaction {
 	/******		Generating the shopping cart with all the details from products, and calculating the total of the Transaction:	******/
 		for(HashMap.Entry<Integer,Integer> product : shoppingCart.entrySet()){
 			cartToPrint.put(lp.idSearch(product.getKey()) , product.getValue());
-			
 			currentProductPrice = (lp.idSearch(product.getKey()).getPrice());
-			System.out.println("price:"+currentProductPrice);
 			currentProductQty = product.getValue();
-			System.out.println("Qty:"+currentProductQty);
 			currentProductTotal= (currentProductPrice * currentProductQty);
-			System.out.println("Total"+currentProductTotal);
 			transaction.setTotal(transaction.getTotal() + currentProductTotal); 
-			System.out.println("TTotal:"+transaction.getTotal());
 		}
 	/***** 	Setting the serverDate:	*****/	
 		long mlSeconds = System.currentTimeMillis();
