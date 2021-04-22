@@ -51,8 +51,12 @@ public class FinishPurchase extends HttpServlet {
 				//remember to empty the cart (and the address and card) from the session once the transaction is registered in the DB
 		Transaction transaction = logic.registerTransaction(user.getId(), address.getId(), card.getId(), shoppingCart);
 		request.setAttribute("ticket", transaction);
+/*		if (transaction.getIdTransaction() == 0) {
+			request.getRequestDispatcher("WEB-INF/TransactionError.jsp").forward(request, response);
+		}
+*/		
+		request.getSession().removeAttribute("shoppingCart");
 		request.getRequestDispatcher("WEB-INF/TransactionTicket.jsp").forward(request, response);
-		
 		
 	}
 

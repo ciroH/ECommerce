@@ -1,9 +1,6 @@
 package logic;
 
 import java.util.HashMap;
-import java.util.Iterator;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import data.DataTransaction;
 import entities.Product;
@@ -17,6 +14,7 @@ public class LogicTransaction {
 		float currentProductPrice;
 		float currentProductTotal;
 		int currentProductQty;
+//		int idSavedTransaction = 0;
 		transaction.setIdUser(userId);
 		transaction.setIdAddress(addressId);
 		transaction.setIdCard(cardId);
@@ -35,7 +33,7 @@ public class LogicTransaction {
 		transaction.setServerDate(mlSeconds);
 	/*****	Transforming the cart into a string	*****/	
 		String printedCart = "+";
-		for (int i = 0; i < 50; i++) printedCart += "-";
+		for (int i = 0; i < 49; i++) printedCart += "-";
 		printedCart+="+qty--+total---+ <br>";
 		for(HashMap.Entry<Product,Integer> product : cartToPrint.entrySet()) {
 			for (int i = 0; i < 50; i++) printedCart += "-";
@@ -49,23 +47,21 @@ public class LogicTransaction {
 			printedCart+="| <br>";			
 		}	
 		printedCart+="+";
-		for (int i = 0; i < 50; i++) printedCart += "¯";
+		for (int i = 0; i < 49; i++) printedCart += "¯";
 		printedCart+="+-----+"+transaction.getTotal();
 		for (int i = 0; i < (8 - String.valueOf(transaction.getTotal()).length()); i++) printedCart+=" ";
 		printedCart+="+ <br>";
 		transaction.setDetail(printedCart);	
 	/*****	Calling DataTransaction	*****/	
+//		idSavedTransaction = dataT.saveTransaction(transaction).getIdTransaction();
 		if (dataT.saveTransaction(transaction)) {
-			System.out.println("Transaction Saved");
-			System.out.println(transaction.getDetail());
-			//retrieve the Trasnsaction, to send it to saveDetails
-/*			if (dataT.saveDetails(transaction)) {	//must define a way of make them both true or false, maybe if saveTransaction or saveDetails fails, erasing the transaction from the DB and returning an error would be the best
-				
+/*			transaction.setIdTransaction(idSavedTransaction);
+			if (!dataT.saveDetails(transaction)) {	//if saving the Transaction Details fails, this if block will be true and the Transaction will be deleted from the DB
+														//-deprecated comment: must define a way of make them both true or false, maybe if saveTransaction or saveDetails fails, erasing the transaction from the DB and returning an error would be the best
+			//deletes Transaction from the DB	
+			//changes transaction.idTransaction to 0 and returns it	
 			}
-*/		}else {
-			
-		}
-		
+*/		}
 		
 	return transaction;	
 	}
