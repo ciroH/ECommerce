@@ -45,9 +45,10 @@
 			<img id="userPhoto" alt="user" src="ImageResources/UserImage/Default/noUser-small.png">
 		</a>
 		<% }else { %>
-		<a href="UserProfile.jsp">
-			<img id="userPhoto" alt="user" src="<%= user.getUserPic() %>" >
-		</a>
+		<form action="ViewProfile" method="post">
+		<!-- 	<img id="userPhoto" alt="user" src="<%= user.getUserPic() %>" > -->
+		<input type="image" id="userPhoto" src="<%= user.getUserPic() %>">
+		</form>
 		<% } %>
 		<% if(user != null){  %>
 		<form action="ManageCart" method="get">
