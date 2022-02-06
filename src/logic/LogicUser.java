@@ -3,7 +3,7 @@ package logic;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.security.*;
-import org.eclipse.core.resources.*;
+//import org.eclipse.core.resources.*;
 
 import data.DataUser;
 import entities.User;
