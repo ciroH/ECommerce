@@ -31,8 +31,7 @@ public class DataCard {
 			DbConnector.getInstance().releaseConn();
 				
 		} catch (Exception e2) {
-			e2.printStackTrace();
-			//return(false);
+			throw e2;
 		}
 	}
 		return true;
@@ -69,7 +68,7 @@ public class DataCard {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 	return card;
