@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,10 +42,14 @@ public class AddCard extends HttpServlet {
 		card.setNumber(request.getParameter("number"));
 		card.setSecurityCode(Integer.parseInt(request.getParameter("securitycode")));
 		card.setDate(Date.valueOf(request.getParameter("date")));
+		try {
 		if(dc.add(card)){
 			card = dc.getCard(card);
 			request.getSession().setAttribute("card", card);
 		}
+		} catch(SQLException e) {
+			request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+		  }
 		request.getRequestDispatcher("/PurchaseDetails").forward(request, response);
 		
 	}

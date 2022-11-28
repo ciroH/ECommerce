@@ -8,7 +8,7 @@ import entities.Card;
 
 public class DataCard {
 
-	public boolean add(Card card) {
+	public boolean add(Card card) throws SQLException {
 		PreparedStatement addPstmt = null;
 		
 		try {
@@ -21,7 +21,7 @@ public class DataCard {
 			addPstmt.executeUpdate();
 		
 	} catch (SQLException e) {
-		e.printStackTrace();
+		throw e;
 	} finally {
 		
 		try {
@@ -39,7 +39,7 @@ public class DataCard {
 	
 	}
 	
-	public Card getCard(Card searchedCard) {
+	public Card getCard(Card searchedCard) throws SQLException {
 		Card card = new Card();
 		PreparedStatement getCardStatement = null;
 		ResultSet rs = null;
@@ -58,7 +58,7 @@ public class DataCard {
 				
 			}
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if (rs!=null) {
