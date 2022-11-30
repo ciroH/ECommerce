@@ -5,6 +5,8 @@ import logic.LogicUser;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,7 +41,8 @@ public class SignIn extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+	  try {
 		if (request.getParameter("inputPassword").equals(request.getParameter("inputPasswordCheck"))) {
 		User userSign = new User();
 		userSign.setMail(request.getParameter("inputEmail"));
@@ -59,15 +62,17 @@ public class SignIn extends HttpServlet {
 			
 		} else {
 			request.setAttribute("warning","existing"); //"warning, the email address already exist in the DataBase"
-			request.getRequestDispatcher("/SignInForm.jsp").forward(request, response);
 		}
 		
 		}else {
 			//response.getWriter().append("verify Password"); 
 			 request.setAttribute("warning","password"); //<-- so when the servlet forwards the request to the same jsp, that jsp verifies request.getAttribute("warning"), and if it isn't null, the jsp shows a sign asking the user with the corresponding warning
-			 request.getRequestDispatcher("/SignInForm.jsp").forward(request, response);
 		
 		}
+	  }catch (SQLException e) {
+		  request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+	  }
+	  request.getRequestDispatcher("/SignInForm.jsp").forward(request, response);
 	}
 
 }

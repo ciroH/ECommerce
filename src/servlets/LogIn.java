@@ -4,6 +4,8 @@ import entities.User;
 import logic.LogicUser;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,7 +34,11 @@ public class LogIn extends HttpServlet {
 	    User userLogIn = new User();
 		userLogIn.setMail(request.getParameter("inputEmail"));
 		userLogIn.setPassword(request.getParameter("inputPassword"));
-		userLogIn = logic.processLogIn(userLogIn);
+		try {
+			userLogIn = logic.processLogIn(userLogIn);
+		} catch (SQLException e) {
+			request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+		}
 		if (userLogIn == null) {
 			request.setAttribute("warning", "non-valid");
 			request.getRequestDispatcher("/LogInForm.jsp").forward(request, response);
