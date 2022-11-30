@@ -9,7 +9,7 @@ import entities.Product;
 
 
 public class DataProduct {
-	public LinkedList<Product> getAll() {	//logic will group the returned List later into categories (NULL equals 'other' category)
+		public LinkedList<Product> getAll() throws SQLException {	//logic will group the returned List later into categories (NULL equals 'other' category)
 		LinkedList<Product> productList = new LinkedList<>();
 		Product item;
 		PreparedStatement getAllStatement = null;
@@ -31,7 +31,7 @@ public class DataProduct {
 				productList.add(item);
 			}
 		} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 		}finally {
 			try {
 				if (rs!=null) {
@@ -42,12 +42,13 @@ public class DataProduct {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 	return productList;
 	}
-		public LinkedList<Product> getByCategory(String category) {	
+
+		public LinkedList<Product> getByCategory(String category) throws SQLException {	
 		LinkedList<Product> productList = new LinkedList<>();
 		Product item;
 		PreparedStatement categoryStatement = null;
@@ -71,7 +72,7 @@ public class DataProduct {
 			}
 			
 		} catch (SQLException e) {
-				e.printStackTrace();
+			throw e;
 		}finally {
 			try {
 				if (rs!=null) {
@@ -82,12 +83,13 @@ public class DataProduct {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 	return productList;
 	}
-		public LinkedList<String> getCategories(){
+
+		public LinkedList<String> getCategories() throws SQLException{
 			LinkedList<String> categories = new LinkedList<>();
 			PreparedStatement categoryStatement = null;
 			ResultSet rs = null;
@@ -100,7 +102,7 @@ public class DataProduct {
 				}
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 			}finally {
 				try {
 					if (rs!=null) {
@@ -111,12 +113,13 @@ public class DataProduct {
 					}
 					DbConnector.getInstance().releaseConn();
 				} catch (SQLException e2) {
-					e2.printStackTrace();
+					throw e2;
 				}
 			}
 	return categories;	
 	}
-		public LinkedList<Product> search(String searchInput) {	
+
+		public LinkedList<Product> search(String searchInput) throws SQLException{	
 			LinkedList<Product> productList = new LinkedList<>();
 			Product item;
 			PreparedStatement searchStatement = null;
@@ -140,7 +143,7 @@ public class DataProduct {
 					productList.add(item);
 				}
 			} catch (SQLException e) {
-					e.printStackTrace();
+					throw e;
 			}finally {
 				try {
 					if (rs!=null) {
@@ -151,13 +154,13 @@ public class DataProduct {
 					}
 					DbConnector.getInstance().releaseConn();
 				} catch (SQLException e2) {
-					e2.printStackTrace();
+					throw e2;
 				}
 			}
 		return productList;
 		}
-		
-		public boolean add(Product product) {
+
+		public boolean add(Product product) throws SQLException{
 			PreparedStatement addPstmt = null;
 			if (!(search(product.getName()).isEmpty())) {	//felt that the "LIKE" in the SQL syntax of the method search was enought; items called "mouse" or other generic short names shouln't be used when adding new products
 				return false;			//false means that there's a product already on the database with the same name or a similar one
@@ -174,7 +177,7 @@ public class DataProduct {
 					addPstmt.executeUpdate();
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 				// devolver error de conexión a la db como un throwException al jsp de "insertar producto"
 				// y si devuelvo false?
 			} finally {
@@ -186,15 +189,15 @@ public class DataProduct {
 					DbConnector.getInstance().releaseConn();
 						
 				} catch (Exception e2) {
-					e2.printStackTrace();
+					throw e2;
 					//return(false);
 				}
 			}
 				return true;
 			
 		}
-		
-		public boolean delete(Product product) {	//if it returns true, the product is deleted from the linkedList that's on the servlet too, instead of doing another select. after that, the updated table is shown on the jsp
+
+		public boolean delete(Product product) throws SQLException{	//if it returns true, the product is deleted from the linkedList that's on the servlet too, instead of doing another select. after that, the updated table is shown on the jsp
 			PreparedStatement addPstmt = null;
 			try {
 
@@ -204,9 +207,7 @@ public class DataProduct {
 					addPstmt.executeUpdate();
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
-				return false;
-				// devolver error de conexión a la db como un throwException al jsp de "insertar producto"
+				throw e;
 			} finally {
 				
 				try {
@@ -216,12 +217,13 @@ public class DataProduct {
 					DbConnector.getInstance().releaseConn();
 						
 				} catch (Exception e2) {
-					e2.printStackTrace();
+					throw e2;
 				}
 			}
 				return true;	
 					}
-		public boolean modify(Product product) {
+
+		public boolean modify(Product product) throws SQLException{
 			PreparedStatement modPstmt = null;
 			int idParamNumber;
 			try {
@@ -248,8 +250,7 @@ public class DataProduct {
 				modPstmt.executeUpdate();
 
 			}catch (Exception e) {
-				e.printStackTrace();
-				return false;
+				throw e;
 			} finally {
 				try {
 					if (modPstmt !=null) {
@@ -257,12 +258,13 @@ public class DataProduct {
 					}
 					DbConnector.getInstance().releaseConn();
 				} catch (Exception e2) {
-					e2.printStackTrace();
+					throw e2;
 				}	
 			}
 			return true;		
 		}
-		public Product searchById(int id) {
+
+		public Product searchById(int id) throws SQLException{
 			Product item = null;
 			PreparedStatement idSearchStatement = null;
 			ResultSet rs = null;
@@ -282,7 +284,7 @@ public class DataProduct {
 				}
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw e;
 				
 			}finally {
 				try {
@@ -294,12 +296,12 @@ public class DataProduct {
 					}
 					DbConnector.getInstance().releaseConn();
 				} catch (SQLException e2) {
-					e2.printStackTrace();
+					throw e2;
 				}
 			}
 		return item;
 		}
-		public LinkedList<Product> filterByPrice(float maxPrice) {	
+		public LinkedList<Product> filterByPrice(float maxPrice) throws SQLException {	
 		LinkedList<Product> productList = new LinkedList<>();
 		Product item;
 		PreparedStatement filterStatement = null;
@@ -323,7 +325,7 @@ public class DataProduct {
 			}
 			
 		} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 		}finally {
 			try {
 				if (rs!=null) {
@@ -334,7 +336,7 @@ public class DataProduct {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 	return productList;
