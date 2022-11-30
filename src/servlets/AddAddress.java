@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,9 +46,13 @@ public class AddAddress extends HttpServlet {
 		address.setState(request.getParameter("state"));
 		address.setCountry(request.getParameter("country"));
 		address.setPostalCode(request.getParameter("postalcode"));
+		try {
 		if(da.add(address)){
 			address = da.getAddress(address);
 			request.getSession().setAttribute("address", address);
+		}
+		} catch (SQLException e) {
+			request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
 		}
 		request.getRequestDispatcher("/PurchaseDetails").forward(request, response);
 		
