@@ -1,5 +1,6 @@
 package logic;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import data.DataTransaction;
@@ -8,7 +9,7 @@ import entities.Transaction;
 
 public class LogicTransaction {
 
- public	Transaction registerTransaction(int userId, int addressId, int cardId, HashMap<Integer,Integer> shoppingCart){	//shoppingCart has the if of each product as the Key and the quantity as the Value
+ public	Transaction registerTransaction(int userId, int addressId, int cardId, HashMap<Integer,Integer> shoppingCart) throws SQLException{	//shoppingCart has the if of each product as the Key and the quantity as the Value
 		DataTransaction dataT = new DataTransaction();
 		Transaction transaction = new Transaction();
 		float currentProductPrice;
