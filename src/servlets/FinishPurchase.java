@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.Address;
 import entities.Card;
-import entities.Product;
 import entities.Transaction;
 import entities.User;
 import logic.LogicTransaction;
@@ -49,7 +49,12 @@ public class FinishPurchase extends HttpServlet {
 		HashMap<Integer,Integer> shoppingCart = new HashMap<>();
 		shoppingCart.putAll((HashMap<Integer, Integer>)request.getSession().getAttribute("shoppingCart"));
 				//remember to empty the cart (and the address and card) from the session once the transaction is registered in the DB
-		Transaction transaction = logic.registerTransaction(user.getId(), address.getId(), card.getId(), shoppingCart);
+		Transaction transaction = null;
+		try {
+			transaction = logic.registerTransaction(user.getId(), address.getId(), card.getId(), shoppingCart);
+		} catch (SQLException e) {
+			request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+		}
 		request.setAttribute("ticket", transaction);
 /*		if (transaction.getIdTransaction() == 0) {
 			request.getRequestDispatcher("WEB-INF/TransactionError.jsp").forward(request, response);

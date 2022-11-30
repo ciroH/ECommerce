@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
@@ -30,8 +31,12 @@ public class SearchCategory extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String category = request.getParameter("category");
-		LinkedList<Product> productList = dp.getByCategory(category);
-		request.setAttribute("categoryProducts", productList);
+		try {
+			LinkedList<Product> productList = dp.getByCategory(category);
+			request.setAttribute("categoryProducts", productList);
+		} catch (SQLException e) {
+			request.setAttribute("warning",e.getSQLState() + " : " + e.getMessage());
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);
 	}

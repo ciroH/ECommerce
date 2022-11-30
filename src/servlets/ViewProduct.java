@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,9 +29,13 @@ public class ViewProduct extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		Product productToShow = dp.searchById(id);
-		request.setAttribute("product", productToShow);
+		try {
+			int id = Integer.parseInt(request.getParameter("id"));
+			Product productToShow = dp.searchById(id);
+			request.setAttribute("product", productToShow);
+		} catch (NumberFormatException | SQLException e) {
+			request.setAttribute("warning", e.getMessage());
+		  }
 		request.getRequestDispatcher("ProductDetail.jsp").forward(request, response);
 	}
 

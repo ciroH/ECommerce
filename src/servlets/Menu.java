@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -36,8 +37,13 @@ public class Menu extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (request.getAttribute("option")!=null && request.getAttribute("option").equals("products")) {  //maybe replace it later with a switch statement for all the requests (with Attributes loaded) forwarded from another servlets
-			LinkedList<Product> productList = logic.showAll();
+		if (request.getAttribute("option")!=null && request.getAttribute("option").equals("products")) {  //maybe replace it later with a switch statement for all the requests (with Attributes loaded) forwarded from other servlets
+			LinkedList<Product> productList = new LinkedList<>();
+			try {
+				productList = logic.showAll();
+			} catch (SQLException e) {
+				request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+			}
 			request.setAttribute("productList", productList);
 			request.setAttribute("trigger", "clean");
 			request.getRequestDispatcher("WEB-INF/ManageProduct.jsp").forward(request, response);
@@ -48,7 +54,12 @@ public class Menu extends HttpServlet {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			break;
 		case "products":
-			LinkedList<Product> productList = logic.showAll();
+			LinkedList<Product> productList = new LinkedList<>();
+			try {
+				productList = logic.showAll();
+			} catch (SQLException e) {
+				request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+			}
 			request.setAttribute("productList", productList);
 			request.setAttribute("trigger", "clean");
 			request.getRequestDispatcher("WEB-INF/ManageProduct.jsp").forward(request, response);

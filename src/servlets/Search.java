@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
@@ -33,7 +34,12 @@ public class Search extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		LinkedList<Product> results = dp.search(request.getParameter("searchField"));
+		LinkedList<Product> results = null;
+		try {
+			results = dp.search(request.getParameter("searchField"));
+		} catch (SQLException e) {
+			request.setAttribute("warning",e.getSQLState() + " : " + e.getMessage());
+		}
 		request.setAttribute("searchResults", results);
 		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 		rd.forward(request, response);

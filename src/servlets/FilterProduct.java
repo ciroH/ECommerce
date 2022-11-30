@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import javax.servlet.ServletException;
@@ -26,7 +27,12 @@ public class FilterProduct extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		float maxPrice = Float.parseFloat(request.getParameter("maxPrice"));
-		LinkedList<Product> filterList = dp.filterByPrice(maxPrice);
+		LinkedList<Product> filterList = null;
+		try {
+			filterList = dp.filterByPrice(maxPrice);
+		} catch (SQLException e) {
+			request.setAttribute("warning", e.getSQLState() + " : " + e.getMessage());
+		}
 		request.setAttribute("filteredProducts", filterList);
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

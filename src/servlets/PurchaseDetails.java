@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -36,13 +37,18 @@ public class PurchaseDetails extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getSession().getAttribute("shoppingCart"); //delete this line
 		HashMap<Integer,Integer> shoppingCart = new HashMap<>();
 		HashMap<Product,Integer> cartToShow =  new HashMap<>();
 		shoppingCart.putAll((HashMap<Integer,Integer>)request.getSession().getAttribute("shoppingCart"));
 		for(HashMap.Entry<Integer,Integer> product : shoppingCart.entrySet()){
-			cartToShow.put(logic.idSearch(product.getKey()) , product.getValue());
+			try {
+				cartToShow.put(logic.idSearch(product.getKey()) , product.getValue());
+			} catch (SQLException e) {
+				request.setAttribute("warning",e.getSQLState() + " : " + e.getMessage());
+			}
 		}
 		request.setAttribute("cartToShow", cartToShow);
 		request.getRequestDispatcher("WEB-INF/ShowPurchaseDetails.jsp").forward(request, response);
