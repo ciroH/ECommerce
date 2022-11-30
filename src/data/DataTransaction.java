@@ -9,22 +9,16 @@ import entities.Transaction;
 
 public class DataTransaction {
 
- public	boolean saveTransaction(Transaction transaction){
+ public	boolean saveTransaction(Transaction transaction) throws SQLException{
 		Transaction identifTransaction = new Transaction();
 	 	PreparedStatement savePstmt = null;
-//		ResultSet rs = null;
 		try {
 				savePstmt = DbConnector.getInstance().getConn().prepareStatement("INSERT INTO transaction (serverdate,total) VALUES (?,?) ");
 				savePstmt.setDate(1,transaction.getServerDate() );
 				savePstmt.setFloat(2, transaction.getTotal());
 				savePstmt.executeUpdate();
-/*				savePstmt = DbConnector.getInstance().getConn().prepareStatement("SELECT  LAST_INSERT_ID();"); //fix it
-				rs = savePstmt.executeQuery();
-				if (rs != null && rs.next()) {
-					identifTransaction.setIdTransaction(rs.getInt("id"));
-				}
-*/		} catch (SQLException e) {
-			e.printStackTrace();
+				
+		} catch (SQLException e) {
 			return false;
 		} finally {
 			
@@ -34,13 +28,13 @@ public class DataTransaction {
 				}
 				DbConnector.getInstance().releaseConn();
 					
-			} catch (Exception e2) {
-				e2.printStackTrace();
-				return false;
+			} catch (SQLException e2) {
+				throw e2;
 			}
 		}
 			return true;
 		}
+ 
 	public boolean saveDetails(Transaction transaction) {
 		PreparedStatement detailsPstmt = null;
 		
@@ -73,7 +67,16 @@ public class DataTransaction {
 				
 	}
 	
-	
+	public int getTransactionId() { //use transactionId to save transdetails later
+		int transactionId = -1;
+		/*		savePstmt = DbConnector.getInstance().getConn().prepareStatement("SELECT  LAST_INSERT_ID();"); //fix it
+		rs = savePstmt.executeQuery();
+		if (rs != null && rs.next()) {
+			identifTransaction.setIdTransaction(rs.getInt("id"));
+		}
+*/
+	return transactionId;
+	}
 	
 	
 }
