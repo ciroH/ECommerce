@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class DataUser {
 	
-	public User getOnLogin(User userRec) {
+	public User getOnLogin(User userRec) throws SQLException {
 		User user = null;
 		PreparedStatement loginStatement = null;
 		ResultSet rs = null;
@@ -25,7 +25,7 @@ public class DataUser {
 				user.setUserPic(rs.getString("userpic"));
 			}
 		} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 		}finally {
 			try {
 				if (rs!=null) {
@@ -36,13 +36,13 @@ public class DataUser {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 	return user;
 	}
 	
-	public boolean signIn(User user) {
+	public boolean signIn(User user) throws SQLException {
 		PreparedStatement signInStmt = null;
 		if (!verifyUser(user)) {
 			return false;
@@ -64,8 +64,7 @@ public class DataUser {
 			signInStmt.executeUpdate(); //podría usar en su lugar execute(), que devuelve un booleano
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
-			// devolver error de conexión a la db como un throwException al jsp de SignIn
+			throw e;
 		} finally {
 			
 			try {
@@ -82,7 +81,7 @@ public class DataUser {
 		
 	}
 
-	private boolean verifyUser(User user) { //couldn't find a workaround for reusing getOnLogin method (in this case, the query shouldn't check password) without overcomplicating readability of getOnLogin method.
+	private boolean verifyUser(User user) throws SQLException { //couldn't find a workaround for reusing getOnLogin method (in this case, the query shouldn't check password) without overcomplicating readability of getOnLogin method.
 		boolean response = false;					// - this method returns false if a user with the Email Address written on the SignIn form already exists on the DataBase.
 		PreparedStatement loginStatement = null;
 		ResultSet rs = null;
@@ -97,7 +96,7 @@ public class DataUser {
 				response = true;
 			}
 		} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 		}finally {
 			try {
 				if (rs!=null) {
@@ -108,7 +107,7 @@ public class DataUser {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 		return response;
