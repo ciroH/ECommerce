@@ -9,7 +9,7 @@ import entities.Address;
 
 public class DataAddress {
 
-	public boolean add(Address address) {
+	public boolean add(Address address) throws SQLException {
 		PreparedStatement addPstmt = null;
 		
 		try {
@@ -25,7 +25,7 @@ public class DataAddress {
 			addPstmt.executeUpdate();
 		
 	} catch (SQLException e) {
-		e.printStackTrace();
+		throw e;
 	} finally {
 		
 		try {
@@ -35,15 +35,14 @@ public class DataAddress {
 			DbConnector.getInstance().releaseConn();
 				
 		} catch (Exception e2) {
-			e2.printStackTrace();
-			//return(false);
+			throw e2;
 		}
 	}
 		return true;
 	
 	}
 
-	public Address getAddress(Address searchedAddress) {
+	public Address getAddress(Address searchedAddress) throws SQLException {
 		Address address = new Address();
 		PreparedStatement getAddressStatement = null;
 		ResultSet rs = null;
@@ -64,7 +63,7 @@ public class DataAddress {
 				address.setPostalCode(rs.getString("postalcode"));
 			}
 		} catch (SQLException e) {
-				e.printStackTrace();
+				throw e;
 		}finally {
 			try {
 				if (rs!=null) {
@@ -75,7 +74,7 @@ public class DataAddress {
 				}
 				DbConnector.getInstance().releaseConn();
 			} catch (SQLException e2) {
-				e2.printStackTrace();
+				throw e2;
 			}
 		}
 	return address;
