@@ -4,13 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.security.*;
 //import org.eclipse.core.resources.*;
+import java.sql.SQLException;
 
 import data.DataUser;
 import entities.User;
 
 public class LogicUser{
   DataUser du = new DataUser();
-	public User processLogIn(User loginUser) {	
+	public User processLogIn(User loginUser) throws SQLException {	
 		//recibe usuario mapeado(solo con mail y password cargados)
 		//reemplaza el password por el hash del password
 		//le pasa el usuario a DataUser.getOnLogin()
@@ -23,7 +24,7 @@ public class LogicUser{
 	}
 	
 	
-	public boolean processSignIn(User signInUser) {
+	public boolean processSignIn(User signInUser) throws SQLException {
 		
 		
 		return du.signIn(signInUser);
